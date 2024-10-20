@@ -5,6 +5,7 @@ import React from "react";
 import ChipType from "../ChipType";
 import Title from "../Title";
 import { Ability, Type } from "@/app/type/pokemon.type";
+import { useRouter } from "next/navigation";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
@@ -14,6 +15,7 @@ interface PokemonInformationProps {
   height?: number;
   abilities?: Ability[];
   type?: Type[];
+  id?: number;
 }
 
 const Value = styled(Typography)`
@@ -30,7 +32,10 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
   height,
   type,
   abilities,
+  id,
 }) => {
+  const router = useRouter();
+
   return (
     <Box display="flex" flexDirection="row" gap={"16px"}>
       <Image
@@ -87,6 +92,7 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
               color: "white",
               fontWeight: "bold",
             }}
+            onClick={() => router.push(`./detail/${id}`)}
           >
             More Detail
           </Button>

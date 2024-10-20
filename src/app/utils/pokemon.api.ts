@@ -3,7 +3,13 @@ import { PokemonAPIResponse, PokemonListResponse } from "../type/pokemon.type";
 import AxiosInstance from "./api";
 import { APIResponse } from "../type/global.type";
 
-export const getListPokemon = async (): Promise<
+export const getListPokemon = async ({
+  limitPage,
+  pageNumber,
+}: {
+  limitPage: number;
+  pageNumber: number;
+}): Promise<
   | {
       pokemonList: PokemonListResponse | undefined;
       allPokemonInformation: PokemonAPIResponse[];
@@ -12,7 +18,9 @@ export const getListPokemon = async (): Promise<
 > => {
   try {
     const pokemonList: APIResponse<PokemonListResponse> =
-      await AxiosInstance.get("/pokemon?limit=9");
+      await AxiosInstance.get(
+        `/pokemon?limit=${limitPage}&offset=${limitPage * (pageNumber - 1)}`
+      );
     let promises = pokemonList?.data?.results?.map((result) => {
       return AxiosInstance.get(result.url);
     });

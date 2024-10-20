@@ -10,6 +10,8 @@ import {
   PokemonListResponse,
 } from "@/app/type/pokemon.type";
 import useModal from "@/app/hooks/useModal";
+import AppPagination from "@/app/components/AppPagination";
+import usePaginationStore from "@/app/store/pagination";
 
 const PokeDex = () => {
   const {
@@ -18,22 +20,26 @@ const PokeDex = () => {
     setModalData,
     modalData,
   } = useModal<PokemonAPIResponse>();
+  const { numberPerPage, pageNumber } = usePaginationStore();
 
   const [tableData, setTableData] = React.useState<
     PokemonListResponse | undefined
-  >(undefined);
+  >();
   const [pokemonData, setPokemonData] = React.useState<PokemonAPIResponse[]>(
     []
   );
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const result = await getListPokemon();
+      const result = await getListPokemon({
+        limitPage: numberPerPage,
+        pageNumber: pageNumber,
+      });
       setTableData(result?.pokemonList);
       setPokemonData(result?.allPokemonInformation as PokemonAPIResponse[]);
     };
     fetchData();
-  }, []);
+  }, [numberPerPage, pageNumber]);
 
   return (
     <section id="pokedex">
@@ -67,23 +73,7 @@ const PokeDex = () => {
             </Grid2>
           ))}
         </Grid2>
-        <Box
-          display="flex"
-          justifyContent="center"
-          flexDirection="row"
-          alignItems={"center"}
-          gap="78px"
-        >
-          <Pagination
-            count={Math.floor((tableData?.count || 0) / 9)}
-            showFirstButton
-            showLastButton
-            variant="outlined"
-          />
-          <Typography fontSize="20px" fontWeight="700" color="#fff">
-            Total Data : {tableData?.count}
-          </Typography>
-        </Box>
+        <AppPagination totalData={tableData?.count || 0} />
         <PokeModal
           modalData={modalData}
           open={openModal}

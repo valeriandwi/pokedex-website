@@ -37,6 +37,7 @@ const PokeModal: React.FC<PokeModalProps> = ({
           bgcolor: "background.paper",
           borderRadius: "24px",
           p: "40px",
+          outline: 0,
         }}
       >
         <CloseButtonWrapper>
@@ -56,6 +57,7 @@ const PokeModal: React.FC<PokeModalProps> = ({
           name={modalData?.name}
           type={modalData?.types}
           abilities={modalData?.abilities}
+          id={modalData?.id}
           showDetailButton
         />
       </Box>

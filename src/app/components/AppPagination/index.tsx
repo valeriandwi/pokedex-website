@@ -1,7 +1,16 @@
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Pagination, Select } from "@mui/material";
 import React from "react";
+import PerPageOption from "./PerPageOption";
+import TotalData from "./TotalData";
+import usePaginationStore from "@/app/store/pagination";
 
-const AppPagination = () => {
+interface AppPaginationProps {
+  totalData: number;
+}
+
+const AppPagination: React.FC<AppPaginationProps> = ({ totalData }) => {
+  const { numberPerPage, pageNumber, setPageNumber } = usePaginationStore();
+
   return (
     <Box
       display="flex"
@@ -10,15 +19,16 @@ const AppPagination = () => {
       alignItems={"center"}
       gap="78px"
     >
+      <PerPageOption />
       <Pagination
-        count={10}
+        count={Math.floor(totalData / numberPerPage)}
         showFirstButton
         showLastButton
         variant="outlined"
+        page={pageNumber}
+        onChange={(_, page) => setPageNumber(page)}
       />
-      <Typography fontSize="20px" fontWeight="700" color="#fff">
-        Total Data :{" "}
-      </Typography>
+      <TotalData totalData={totalData} />
     </Box>
   );
 };
