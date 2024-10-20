@@ -4,9 +4,16 @@ import Image from "next/image";
 import React from "react";
 import ChipType from "../ChipType";
 import Title from "../Title";
+import { Ability, Type } from "@/app/type/pokemon.type";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
+  imageSrc?: string;
+  name?: string;
+  weight?: number;
+  height?: number;
+  abilities?: Ability[];
+  type?: Type[];
 }
 
 const Value = styled(Typography)`
@@ -17,36 +24,55 @@ const Value = styled(Typography)`
 
 const PokemonInformation: React.FC<PokemonInformationProps> = ({
   showDetailButton = false,
+  imageSrc,
+  name,
+  weight,
+  height,
+  type,
+  abilities,
 }) => {
   return (
     <Box display="flex" flexDirection="row" gap={"16px"}>
-      <Image src="/logo.svg" width={400} height={400} alt="pokemon-image" />
+      <Image
+        src={imageSrc || ""}
+        width={400}
+        height={400}
+        alt="pokemon-image"
+      />
       <Box>
-        <Typography fontWeight="700" fontSize="40px" color="#42494D">
-          Pokemon Name
+        <Typography
+          textTransform="capitalize"
+          fontWeight="700"
+          fontSize="40px"
+          color="#42494D"
+        >
+          {name}
         </Typography>
         <Box mt="16px" display="flex" flexDirection="column" gap="10px">
           <Box display="flex" flexDirection="row">
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title>Weight: </Title>
-              <Value>9999</Value>
+              <Title width="125px">Weight: </Title>
+              <Value>{weight}</Value>
             </Box>
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title>Height: </Title>
-              <Value>999</Value>
+              <Title width="125px">Height: </Title>
+              <Value>{height}</Value>
             </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title>Abilities: </Title>
-            <Value>
-              <p>Abilities 1</p>
-              <p>Abilities 2</p>
+            <Title width="125px">Abilities: </Title>
+            <Value marginLeft="15px">
+              <ul>
+                {abilities?.map((ability) => (
+                  <li>{ability?.ability?.name}</li>
+                ))}
+              </ul>
             </Value>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title>Type: </Title>
-            {[1, 2, 3].map((type) => (
-              <ChipType type={type} label={`Type ${type}`} />
+            <Title width="125px">Type: </Title>
+            {type?.map(({ type }) => (
+              <ChipType type={type.name} label={type.name} />
             ))}
           </Box>
         </Box>

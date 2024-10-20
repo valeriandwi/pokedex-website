@@ -7,13 +7,14 @@ import React from "react";
 
 interface PokeCardProps {
   openModal: () => void;
+  data: any;
 }
 
 const PokeImage = emotionStyled(Image)`
-  background-color: #B3B6B8;
+  background-color: #fff;
 `;
 
-const PokeCard: React.FC<PokeCardProps> = ({ openModal }) => {
+const PokeCard: React.FC<PokeCardProps> = ({ data, openModal }) => {
   return (
     <Card
       sx={{
@@ -32,18 +33,31 @@ const PokeCard: React.FC<PokeCardProps> = ({ openModal }) => {
       }}
       onClick={openModal}
     >
-      <PokeImage src="logo.svg" height="275" width="275" alt="pokemon-pic" />
-      <Typography sx={{ color: "#B3B6B8", fontWeight: "700" }}>#001</Typography>
-      <Typography sx={{ fontWeight: "700", fontSize: "40px" }}>
-        Poke Name
+      <PokeImage
+        src={data?.sprites?.other?.dream_world?.front_default}
+        height="275"
+        width="275"
+        alt="pokemon-pic"
+      />
+      <Typography sx={{ color: "#B3B6B8", fontWeight: "700" }}>
+        #{("000" + data.id).slice(1)}
+      </Typography>
+      <Typography
+        sx={{
+          fontWeight: "700",
+          fontSize: "40px",
+          textTransform: "capitalize",
+        }}
+      >
+        {data.name}
       </Typography>
       <Grid2 container spacing={2}>
-        {[1, 2, 3, 4].map((type) => (
-          <Grid2 size={6} key={type}>
+        {data?.types?.map(({ type }: any, index: number) => (
+          <Grid2 size={6} key={index}>
             <ChipType
               sx={{ width: "-webkit-fill-available" }}
-              label={`Type ${type}`}
-              type={type}
+              label={type?.name}
+              type={type?.name}
             />
           </Grid2>
         ))}

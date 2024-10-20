@@ -21,7 +21,7 @@ export const theme = createTheme({
           border: "3px solid white",
           borderRadius: "8px",
           height: "50px",
-          width: "40px",
+          minWidth: "40px",
           "&.Mui-selected": {
             backgroundColor: "white",
             color: "#E6AB09",

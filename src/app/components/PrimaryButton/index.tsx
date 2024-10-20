@@ -1,27 +1,16 @@
+"use client";
+import emotionStyled from "@emotion/styled";
 import { Button } from "@mui/material";
-import React from "react";
 
-interface PrimaryButtonProps {
-  children: React.ReactNode;
-}
-
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ children }) => {
-  return (
-    <Button
-      sx={{
-        backgroundColor: "#E6AB09",
-        width: "240px",
-        height: "56px",
-        borderRadius: "14px",
-        padding: "8px 16px",
-        color: "#fff",
-        fontSize: "20px",
-        fontWeight: "700",
-      }}
-    >
-      {children}
-    </Button>
-  );
-};
+const PrimaryButton = emotionStyled(Button)`
+  background-color : #E6AB09;
+  width : 240px;
+  height : 56px;
+  border-radius : 14px;
+  padding : 8px 16px;
+  color : #fff;
+  font-size : 20px;
+  font-weight : 700;
+`;
 
 export default PrimaryButton;

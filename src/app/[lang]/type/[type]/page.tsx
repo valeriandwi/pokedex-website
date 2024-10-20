@@ -1,12 +1,12 @@
+import Navigation from "@/app/features/Type/Navigation";
+import PokemonList from "@/app/features/Type/PokemonList";
 import MainLayout from "@/app/layouts";
 import { Box } from "@mui/material";
 import React from "react";
-import Navigation from "../Navigation";
-import PokemonList from "../PokemonList";
 
 const PokemonType = () => {
   return (
-    <MainLayout>
+    <>
       <Box
         padding="80px 140px"
         minHeight="1814px"
@@ -22,7 +22,7 @@ const PokemonType = () => {
         <Navigation />
         <PokemonList />
       </Box>
-    </MainLayout>
+    </>
   );
 };
 

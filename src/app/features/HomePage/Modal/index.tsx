@@ -1,4 +1,5 @@
 import PokemonInformation from "@/app/components/PokemonInformation";
+import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Button, Modal } from "@mui/material";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import React from "react";
 interface PokeModalProps {
   open: boolean;
   handleClose: () => void;
+  modalData: PokemonAPIResponse | null;
 }
 
 const CloseButtonWrapper = styled("div")`
@@ -17,7 +19,11 @@ const CloseButtonWrapper = styled("div")`
   margin-bottom: 40px;
 `;
 
-const PokeModal: React.FC<PokeModalProps> = ({ open, handleClose }) => {
+const PokeModal: React.FC<PokeModalProps> = ({
+  open,
+  handleClose,
+  modalData,
+}) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -43,7 +49,15 @@ const PokeModal: React.FC<PokeModalProps> = ({ open, handleClose }) => {
             style={{ cursor: "pointer" }}
           />
         </CloseButtonWrapper>
-        <PokemonInformation />
+        <PokemonInformation
+          height={modalData?.height}
+          weight={modalData?.weight}
+          imageSrc={modalData?.sprites?.other?.dream_world?.front_default || ""}
+          name={modalData?.name}
+          type={modalData?.types}
+          abilities={modalData?.abilities}
+          showDetailButton
+        />
       </Box>
     </Modal>
   );
