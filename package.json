@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
-    "@emotion/react": "^11.13.3",
+    "@emotion/css": "^11.13.4",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.4",
     "@mui/material-nextjs": "^6.1.4",

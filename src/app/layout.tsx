@@ -25,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <ThemeProvider theme={theme}>
-          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+          <AppRouterCacheProvider options={{ key: "css" }}>
+            {children}
+          </AppRouterCacheProvider>
         </ThemeProvider>
       </body>
     </html>

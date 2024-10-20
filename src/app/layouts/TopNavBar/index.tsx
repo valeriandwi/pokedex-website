@@ -1,4 +1,4 @@
-import { Container, MenuItem, Select } from "@mui/material";
+import { Box, Container, MenuItem, Select } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
@@ -15,7 +15,7 @@ const TopNavBar = () => {
         alignItems: "center",
       }}
     >
-      <Container
+      <Box
         sx={{
           height: "18px",
           display: "flex",
@@ -39,7 +39,7 @@ const TopNavBar = () => {
           <MenuItem value="english">English</MenuItem>
           <MenuItem>Indonesia</MenuItem>
         </Select>
-      </Container>
+      </Box>
     </Container>
   );
 };

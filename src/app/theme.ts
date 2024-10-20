@@ -14,5 +14,28 @@ export const theme = createTheme({
         maxWidth: false,
       },
     },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          color: "white",
+          border: "3px solid white",
+          borderRadius: "8px",
+          height: "50px",
+          width: "40px",
+          "&.Mui-selected": {
+            backgroundColor: "white",
+            color: "#E6AB09",
+            width: "50px",
+          },
+        },
+        ellipsis: {
+          border: "0px",
+          height: "50px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        },
+      },
+    },
   },
 });

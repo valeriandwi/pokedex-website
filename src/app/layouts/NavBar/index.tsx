@@ -1,4 +1,4 @@
-import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { router } from "./constants";
@@ -6,10 +6,10 @@ import { router } from "./constants";
 const NavBar = () => {
   return (
     <AppBar position="static" sx={{ boxShadow: 0 }}>
-      <Container sx={{ backgroundColor: "#fff", padding: "8px 140px" }}>
+      <Box sx={{ backgroundColor: "#fff", padding: "8px 140px" }}>
         <Toolbar disableGutters sx={{ gap: "40px" }}>
           <Image
-            src="logo.svg"
+            src="/logo.svg"
             alt="pokemon-logo"
             width={167}
             height={59}
@@ -32,7 +32,7 @@ const NavBar = () => {
             ))}
           </Box>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 };
