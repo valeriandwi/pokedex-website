@@ -1,8 +1,13 @@
 import Title from "@/app/components/Title";
+import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+
+interface EvolutionProps {
+  evolutionData: PokemonAPIResponse[];
+}
 
 const EvolutionState = styled("div")`
   width: 197.5px;
@@ -11,14 +16,18 @@ const EvolutionState = styled("div")`
   border-radius: 99999px;
   rounded: full;
   margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Evolution = () => {
+const Evolution: React.FC<EvolutionProps> = ({ evolutionData }) => {
   return (
     <Box marginTop="35px">
       <Title>Evolution :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
-        {[1, 2, 3].map((state, index) => (
+        {evolutionData.map((state, index) => (
           <Box
             display="flex"
             flexDirection="column"
@@ -40,13 +49,21 @@ const Evolution = () => {
                   height="50"
                 />
               )}
-              <EvolutionState key={state} />
+              <EvolutionState key={index}>
+                <Image
+                  src={state?.sprites?.other?.dream_world?.front_default || ""}
+                  alt={state.name}
+                  width="100"
+                  height="100"
+                />
+              </EvolutionState>
             </Box>
             <Title
-              sx={index !== 0 ? { marginLeft: "75px" } : {}}
+              marginLeft={index !== 0 ? "75px" : 0}
               textAlign="center"
+              textTransform="capitalize"
             >
-              Pokemon evolution state {state} name
+              {state.name}
             </Title>
           </Box>
         ))}

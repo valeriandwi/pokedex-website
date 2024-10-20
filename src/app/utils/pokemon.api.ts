@@ -35,3 +35,14 @@ export const getListPokemon = async ({
     console.log(error);
   }
 };
+
+export const getPokemonDetail = async (id: number) => {
+  try {
+    const result: APIResponse<PokemonAPIResponse> = await AxiosInstance.get(
+      `/pokemon/${id}`
+    );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};

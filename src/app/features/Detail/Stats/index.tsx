@@ -1,7 +1,12 @@
 import Title from "@/app/components/Title";
+import { Stat } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import React from "react";
+
+interface StatsProps {
+  status?: Stat[];
+}
 
 const StatsInfo = styled("div")`
   width: 170px;
@@ -15,28 +20,30 @@ const StatsInfo = styled("div")`
   text-align: center !important;
   rounded: full;
   margin-top: 20px;
+  padding: 16px;
 `;
 
 const StatsValue = styled(Typography)`
-  font-size: 60px;
+  font-size: 32px;
   color: #0571a6;
   font-weight: 700;
 `;
 
 const StatType = styled(Typography)`
-  font-size: 20px;
+  font-size: 14px;
   color: #42494d;
+  text-transform: capitalize;
 `;
 
-const Stats = () => {
+const Stats: React.FC<StatsProps> = ({ status }) => {
   return (
     <Box>
       <Title>Stats :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
-        {[1, 2, 3, 4, 5, 6].map((stat) => (
-          <StatsInfo key={stat}>
-            <StatsValue>67</StatsValue>
-            <StatType>Stat 1</StatType>
+        {status?.map((stat, index) => (
+          <StatsInfo key={index}>
+            <StatsValue>{stat.base_stat}</StatsValue>
+            <StatType>{stat.stat.name}</StatType>
           </StatsInfo>
         ))}
       </Box>

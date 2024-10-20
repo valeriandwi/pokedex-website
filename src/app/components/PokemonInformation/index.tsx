@@ -1,11 +1,12 @@
+"use client";
 import styled from "@emotion/styled";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import ChipType from "../ChipType";
 import Title from "../Title";
 import { Ability, Type } from "@/app/type/pokemon.type";
-import { useRouter } from "next/navigation";
+import MoreDetailButton from "./MoreDetailButton";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
@@ -34,8 +35,6 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
   abilities,
   id,
 }) => {
-  const router = useRouter();
-
   return (
     <Box display="flex" flexDirection="row" gap={"16px"}>
       <Image
@@ -66,13 +65,13 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
             <Title width="125px">Abilities: </Title>
-            <Value marginLeft="15px">
+            <Box marginLeft="15px">
               <ul>
                 {abilities?.map((ability) => (
                   <li>{ability?.ability?.name}</li>
                 ))}
               </ul>
-            </Value>
+            </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
             <Title width="125px">Type: </Title>
@@ -81,22 +80,7 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
             ))}
           </Box>
         </Box>
-        {showDetailButton && (
-          <Button
-            sx={{
-              marginTop: "52px",
-              backgroundColor: "#E6AB09",
-              width: "167px",
-              height: "50px",
-              borderRadius: "14px",
-              color: "white",
-              fontWeight: "bold",
-            }}
-            onClick={() => router.push(`./detail/${id}`)}
-          >
-            More Detail
-          </Button>
-        )}
+        {showDetailButton && <MoreDetailButton id={id} />}
       </Box>
     </Box>
   );

@@ -66,7 +66,7 @@ type VersionGroupDetail = {
   move_learn_method: Resource;
 };
 
-type Stat = {
+export type Stat = {
   base_stat: number;
   effort: number;
   stat: Resource;
@@ -102,7 +102,7 @@ type Sprites = {
   };
 };
 
-type SpriteVariant = {
+export type SpriteVariant = {
   front_default: string | null;
   front_female: string | null;
   front_shiny: string | null;
@@ -118,7 +118,7 @@ type Cries = {
   legacy: string;
 };
 
-type Resource = {
+export type Resource = {
   name: string;
   url: string;
 };
