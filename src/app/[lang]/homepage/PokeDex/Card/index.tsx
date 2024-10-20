@@ -5,11 +5,15 @@ import { Card, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
+interface PokeCardProps {
+  openModal: () => void;
+}
+
 const PokeImage = emotionStyled(Image)`
   background-color: #B3B6B8;
 `;
 
-const PokeCard = () => {
+const PokeCard: React.FC<PokeCardProps> = ({ openModal }) => {
   return (
     <Card
       sx={{
@@ -26,6 +30,7 @@ const PokeCard = () => {
           cursor: "pointer",
         },
       }}
+      onClick={openModal}
     >
       <PokeImage src="logo.svg" height="275" width="275" alt="pokemon-pic" />
       <Typography sx={{ color: "#B3B6B8", fontWeight: "700" }}>#001</Typography>

@@ -1,15 +1,13 @@
-import {
-  Box,
-  Grid2,
-  Pagination,
-  PaginationItem,
-  Typography,
-} from "@mui/material";
+"use client";
+import { Box, Grid2, Pagination, Typography } from "@mui/material";
 import React from "react";
 import Title from "./Title";
 import Card from "./Card";
+import PokeModal from "../Modal";
 
 const PokeDex = () => {
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
   return (
     <Box
       bgcolor={"#FFCB3B"}
@@ -30,7 +28,7 @@ const PokeDex = () => {
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
           <Grid2 key={index} size={4}>
             <Box display="flex" justifyContent={"center"}>
-              <Card />
+              <Card openModal={() => setOpenModal(true)} />
             </Box>
           </Grid2>
         ))}
@@ -52,6 +50,7 @@ const PokeDex = () => {
           Total Data :{" "}
         </Typography>
       </Box>
+      <PokeModal open={openModal} handleClose={() => setOpenModal(false)} />
     </Box>
   );
 };
