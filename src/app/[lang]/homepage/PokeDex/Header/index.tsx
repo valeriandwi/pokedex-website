@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const Title = () => {
+const Header = () => {
   return (
     <Box padding="80px 140px" display="flex" flexDirection="column" gap="18px">
       <Typography align="center" fontWeight="700" fontSize="40px">
@@ -15,4 +15,4 @@ const Title = () => {
   );
 };
 
-export default Title;
+export default Header;

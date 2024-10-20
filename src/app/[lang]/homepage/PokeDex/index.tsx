@@ -1,9 +1,9 @@
 "use client";
 import { Box, Grid2, Pagination, Typography } from "@mui/material";
 import React from "react";
-import Title from "./Title";
 import Card from "./Card";
 import PokeModal from "../Modal";
+import Header from "./Header";
 
 const PokeDex = () => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -18,7 +18,7 @@ const PokeDex = () => {
         backgroundSize: "100% 100%",
       }}
     >
-      <Title />
+      <Header />
       <Grid2
         container
         spacing={8}
