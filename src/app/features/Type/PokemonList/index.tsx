@@ -8,13 +8,15 @@ import useThemeStore from "@/app/store/theme";
 import { PokemonTypeDetailResponse } from "@/app/type/pokemon-type.type";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import { getListPokemonByType } from "@/app/utils/pokemon.api";
+import { getTypeIdFromURL } from "@/app/utils/utils";
+import { Link } from "@/i18n/routing";
 import styled from "@emotion/styled";
 import { Box, Card, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
 interface PokemonListProps {
-  id: number;
+  id: string;
 }
 
 const CardContainer = styled(Card)`
@@ -40,9 +42,9 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
 
   React.useEffect(() => {
     setTheme({
-      paginationBorderColor: TYPE_COLOR[id.toString()],
+      paginationBorderColor: TYPE_COLOR[Number(id) - 1],
       paginationSelectedColor: "#fff",
-      paginationTextColor: TYPE_COLOR[id.toString()],
+      paginationTextColor: TYPE_COLOR[Number(id) - 1],
     });
   }, [id]);
 
@@ -50,7 +52,7 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
     const fetchData = async () => {
       const response = await getListPokemonByType({
         pageNumber: pageNumber,
-        id: id,
+        id: Number(id),
         limitPage: numberPerPage,
       });
       setPokemonType(response?.pokemonType?.data || null);
@@ -84,12 +86,16 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
             borderBottom="1px solid #ECEDED"
           >
             <ContentWrapper>
-              <Image
-                src={pokemon?.sprites?.other?.dream_world?.front_default || ""}
-                alt="pokemon-image"
-                width="100"
-                height="100"
-              />
+              <Link href={`/detail/${pokemon.id}`}>
+                <Image
+                  src={
+                    pokemon?.sprites?.other?.dream_world?.front_default || ""
+                  }
+                  alt="pokemon-image"
+                  width="100"
+                  height="100"
+                />
+              </Link>
             </ContentWrapper>
             <Divider
               color="#ECEDED"
@@ -117,13 +123,16 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
             />
             <ContentWrapper>
               <Box display="flex" flexDirection="row" gap="10px">
-                {pokemon?.types?.map((type, index) => (
-                  <ChipType
-                    key={index}
-                    type={type.type.name}
-                    label={type.type.name}
-                  />
-                ))}
+                {pokemon?.types?.map((type, index) => {
+                  const typeId: string = getTypeIdFromURL(type.type.url);
+                  return (
+                    <ChipType
+                      key={index}
+                      typeId={Number(typeId)}
+                      label={type.type.name}
+                    />
+                  );
+                })}
               </Box>
             </ContentWrapper>
           </Box>

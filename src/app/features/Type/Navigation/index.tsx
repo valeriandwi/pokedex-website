@@ -53,7 +53,7 @@ const Navigation: React.FC<NavigationProps> = ({ selectedType }) => {
             const currentType: string = type.url.split("/").at(-2) || "1";
             return (
               <Menu
-                selectedColor={TYPE_COLOR?.[currentType]}
+                selectedColor={TYPE_COLOR?.[Number(currentType) - 1]}
                 key={index}
                 selected={selectedType === currentType}
               >

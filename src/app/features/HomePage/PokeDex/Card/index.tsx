@@ -1,5 +1,7 @@
 "use client";
 import ChipType from "@/app/components/ChipType";
+import { PokemonAPIResponse } from "@/app/type/pokemon.type";
+import { getTypeIdFromURL } from "@/app/utils/utils";
 import emotionStyled from "@emotion/styled";
 import { Card, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
@@ -7,7 +9,7 @@ import React from "react";
 
 interface PokeCardProps {
   openModal: () => void;
-  data: any;
+  data: PokemonAPIResponse;
 }
 
 const PokeImage = emotionStyled(Image)`
@@ -52,15 +54,18 @@ const PokeCard: React.FC<PokeCardProps> = ({ data, openModal }) => {
         {data.name}
       </Typography>
       <Grid2 container spacing={2}>
-        {data?.types?.map(({ type }: any, index: number) => (
-          <Grid2 size={6} key={index}>
-            <ChipType
-              sx={{ width: "-webkit-fill-available" }}
-              label={type?.name}
-              type={type?.name}
-            />
-          </Grid2>
-        ))}
+        {data?.types?.map((type, index: number) => {
+          const typeId = getTypeIdFromURL(type?.type?.url);
+          return (
+            <Grid2 size={6} key={index}>
+              <ChipType
+                sx={{ width: "-webkit-fill-available" }}
+                label={type?.type?.name}
+                typeId={Number(typeId)}
+              />
+            </Grid2>
+          );
+        })}
       </Grid2>
     </Card>
   );

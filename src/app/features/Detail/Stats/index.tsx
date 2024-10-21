@@ -1,4 +1,5 @@
 import Title from "@/app/components/Title";
+import { STATS_COLOR } from "@/app/constants/constants";
 import { Stat } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
@@ -8,10 +9,10 @@ interface StatsProps {
   status?: Stat[];
 }
 
-const StatsInfo = styled("div")`
+const StatsInfo = styled("div")<{ color: string }>`
   width: 170px;
   height: 170px;
-  border: 25px solid #0571a6;
+  border: 25px solid ${(props) => props.color};
   border-radius: 99999px;
   display: flex;
   flex-direction: column;
@@ -23,9 +24,9 @@ const StatsInfo = styled("div")`
   padding: 16px;
 `;
 
-const StatsValue = styled(Typography)`
+const StatsValue = styled(Typography)<{ color: string }>`
   font-size: 32px;
-  color: #0571a6;
+  color: ${(props) => props.color};
   font-weight: 700;
 `;
 
@@ -41,8 +42,8 @@ const Stats: React.FC<StatsProps> = ({ status }) => {
       <Title>Stats :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
         {status?.map((stat, index) => (
-          <StatsInfo key={index}>
-            <StatsValue>{stat.base_stat}</StatsValue>
+          <StatsInfo key={index} color={STATS_COLOR[index]}>
+            <StatsValue color={STATS_COLOR[index]}>{stat.base_stat}</StatsValue>
             <StatType>{stat.stat.name}</StatType>
           </StatsInfo>
         ))}

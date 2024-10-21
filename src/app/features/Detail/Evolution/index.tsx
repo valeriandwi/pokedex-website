@@ -1,4 +1,5 @@
 import Title from "@/app/components/Title";
+import { EVOLUTION_COLOR } from "@/app/constants/constants";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
@@ -9,10 +10,10 @@ interface EvolutionProps {
   evolutionData: PokemonAPIResponse[];
 }
 
-const EvolutionState = styled("div")`
+const EvolutionState = styled("div")<{ borderColor: string }>`
   width: 197.5px;
   height: 197.5px;
-  border: 10px solid #01b956;
+  border: 10px solid ${(props) => props.borderColor};
   border-radius: 99999px;
   rounded: full;
   margin-top: 20px;
@@ -51,7 +52,10 @@ const Evolution: React.FC<EvolutionProps> = ({ evolutionData }) => {
                     height="50"
                   />
                 )}
-                <EvolutionState key={index}>
+                <EvolutionState
+                  key={index}
+                  borderColor={EVOLUTION_COLOR[index]}
+                >
                   <Image
                     src={
                       state?.sprites?.other?.dream_world?.front_default || ""

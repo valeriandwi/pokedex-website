@@ -7,6 +7,8 @@ import ChipType from "../ChipType";
 import Title from "../Title";
 import { Ability, Type } from "@/app/type/pokemon.type";
 import MoreDetailButton from "./MoreDetailButton";
+import { Link } from "@/i18n/routing";
+import { getTypeIdFromURL } from "@/app/utils/utils";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
@@ -75,9 +77,15 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
             <Title width="125px">Type: </Title>
-            {type?.map(({ type }) => (
-              <ChipType type={type.name} label={type.name} />
-            ))}
+            {type?.map(({ type }) => {
+              const typeId: string = getTypeIdFromURL(type.url);
+
+              return (
+                <Link href={`type/${typeId}`}>
+                  <ChipType typeId={Number(typeId)} label={type.name} />
+                </Link>
+              );
+            })}
           </Box>
         </Box>
         {showDetailButton && <MoreDetailButton id={id} />}
