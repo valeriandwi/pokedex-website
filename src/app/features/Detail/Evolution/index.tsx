@@ -2,7 +2,7 @@ import Title from "@/app/components/Title";
 import { EVOLUTION_COLOR } from "@/app/constants/constants";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
@@ -35,6 +35,7 @@ const Evolution: React.FC<EvolutionProps> = ({ evolutionData }) => {
           .sort((a, b) => a.id - b.id)
           .map((state, index) => (
             <Box
+              key={index}
               display="flex"
               flexDirection="column"
               alignItems="center"

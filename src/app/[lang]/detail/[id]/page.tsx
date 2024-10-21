@@ -9,16 +9,16 @@ import { getPokemonDetail } from "@/app/utils/pokemon.api";
 import { Box } from "@mui/material";
 import React from "react";
 
-const DetailPage = ({ params }: any) => {
-  const { id, lang } = params;
+const DetailPage = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
   const [pokemonData, setPokemonData] = React.useState<PokemonAPIResponse>();
   const [evolutionData, setEvolutionData] = React.useState<
     PokemonAPIResponse[]
   >([]);
   React.useEffect(() => {
     const fetchingData = async () => {
-      const pokemonDetail = await getPokemonDetail(id);
-      const pokemonEvolutionChain = await getPokemonEvolutionChain(id);
+      const pokemonDetail = await getPokemonDetail(Number(id));
+      const pokemonEvolutionChain = await getPokemonEvolutionChain(Number(id));
       setEvolutionData(pokemonEvolutionChain || []);
       setPokemonData(pokemonDetail?.data);
     };

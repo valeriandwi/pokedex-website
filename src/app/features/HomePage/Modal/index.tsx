@@ -1,7 +1,7 @@
 import PokemonInformation from "@/app/components/PokemonInformation";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid2, Pagination, Typography } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import React from "react";
 import PokeModal from "../Modal";
 import Header from "./Header";

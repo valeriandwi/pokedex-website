@@ -80,11 +80,11 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
             <Title width="125px">{t("label_type")}: </Title>
-            {type?.map(({ type }) => {
+            {type?.map(({ type }, index) => {
               const typeId: string = getTypeIdFromURL(type.url);
 
               return (
-                <Link href={`type/${typeId}`}>
+                <Link key={index} href={`type/${typeId}`}>
                   <ChipType typeId={Number(typeId)} label={type.name} />
                 </Link>
               );

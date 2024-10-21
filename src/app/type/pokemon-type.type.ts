@@ -22,5 +22,4 @@ export type PokemonTypeDetailResponse = {
   id: string;
   name: string;
   pokemon: PokemonByType[];
-  [key: string]: any;
 };

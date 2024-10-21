@@ -22,7 +22,7 @@ export const getListPokemon = async ({
       await AxiosInstance.get(
         `/pokemon?limit=${limitPage}&offset=${limitPage * (pageNumber - 1)}`
       );
-    let promises = pokemonList?.data?.results?.map((result) => {
+    const promises = pokemonList?.data?.results?.map((result) => {
       return AxiosInstance.get(result.url);
     });
     const allPokemonResult: AxiosResponse<PokemonAPIResponse>[] =
@@ -63,7 +63,7 @@ export const getListPokemonByType = async ({
 
     const pokemonType: APIResponse<PokemonTypeDetailResponse> =
       await AxiosInstance.get(`/type/${id}`);
-    let promises = pokemonType?.data?.pokemon
+    const promises = pokemonType?.data?.pokemon
       ?.slice(startPage, endPage)
       .map((result) => {
         return AxiosInstance.get(result.pokemon.url);

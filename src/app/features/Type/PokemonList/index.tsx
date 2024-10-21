@@ -77,8 +77,9 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
         Pokemon with Type {pokemonType?.name}
       </Typography>
       <CardContainer>
-        {pokemonData?.map((pokemon) => (
+        {pokemonData?.map((pokemon, index) => (
           <Box
+            key={index}
             display="flex"
             flexDirection="row"
             gap="12px"
