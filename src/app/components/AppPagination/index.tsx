@@ -52,7 +52,7 @@ const AppPagination: React.FC<AppPaginationProps> = ({
 
   React.useEffect(() => {
     resetPagination();
-  }, []);
+  }, [resetPagination]);
 
   return (
     <Box

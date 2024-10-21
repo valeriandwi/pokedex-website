@@ -72,8 +72,8 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
             <Title width="125px">{t("label_abilities")}: </Title>
             <Box marginLeft="15px">
               <ul>
-                {abilities?.map((ability) => (
-                  <li>{ability?.ability?.name}</li>
+                {abilities?.map((ability, index) => (
+                  <li key={index}>{ability?.ability?.name}</li>
                 ))}
               </ul>
             </Box>
