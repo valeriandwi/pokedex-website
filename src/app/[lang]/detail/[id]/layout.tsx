@@ -6,8 +6,8 @@ export default function DetailPageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <MainLayout>
+    <>
       <section id="detail-page">{children}</section>
-    </MainLayout>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import { EVOLUTION_COLOR } from "@/app/constants/constants";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -24,9 +25,11 @@ const EvolutionState = styled("div")<{ borderColor: string }>`
 `;
 
 const Evolution: React.FC<EvolutionProps> = ({ evolutionData }) => {
+  const t = useTranslations("Pokemon");
+
   return (
     <Box marginTop="35px">
-      <Title>Evolution :</Title>
+      <Title>{t("label_evolution")} :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
         {evolutionData
           .sort((a, b) => a.id - b.id)

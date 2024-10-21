@@ -1,6 +1,6 @@
 "use client";
+import { useRouter } from "@/i18n/routing";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 interface MoreDetailButton {
@@ -9,6 +9,7 @@ interface MoreDetailButton {
 
 const MoreDetailButton: React.FC<MoreDetailButton> = ({ id }) => {
   const router = useRouter();
+
   return (
     <Button
       sx={{
@@ -20,7 +21,7 @@ const MoreDetailButton: React.FC<MoreDetailButton> = ({ id }) => {
         color: "white",
         fontWeight: "bold",
       }}
-      onClick={() => router.push(`./detail/${id}`)}
+      onClick={() => router.push(`/detail/${id}`)}
     >
       More Detail
     </Button>

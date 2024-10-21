@@ -46,8 +46,14 @@ const AppPagination: React.FC<AppPaginationProps> = ({
   totalData,
   size = "medium",
 }) => {
-  const { numberPerPage, pageNumber, setPageNumber } = usePaginationStore();
+  const { numberPerPage, pageNumber, setPageNumber, resetPagination } =
+    usePaginationStore();
   const { themeColor } = useThemeStore();
+
+  React.useEffect(() => {
+    resetPagination();
+  }, []);
+
   return (
     <Box
       width="full"

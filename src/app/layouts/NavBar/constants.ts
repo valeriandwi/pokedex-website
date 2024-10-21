@@ -1,8 +1,8 @@
 export const router = [
   {
     label: "Home",
-    path: "/homepage",
-    key: ["homepage", "detail"],
+    path: "/",
+    key: ["", "detail"],
   },
   {
     label: "Pokemon Type",

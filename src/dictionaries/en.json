@@ -1,6 +1,18 @@
 {
   "HomePage": {
     "title": "All the Pokémon data you'll ever need in one place!",
-    "subtitle": "Thousands of data compiled into one place"
+    "subtitle": "Thousands of data compiled into one place",
+    "button": "Check PokèDex",
+    "pokedex": "PokèDex",
+    "pokedex_subtitle": "All Generation totaling"
+  },
+  "Pokemon": {
+    "label_weight": "Weight",
+    "label_height": "Height",
+    "label_abilities": "Abilities",
+    "label_type": "Type",
+    "label_otherImages": "Other Images",
+    "label_stats": "Stats",
+    "label_evolution": "Evolution"
   }
 }

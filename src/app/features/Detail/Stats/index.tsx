@@ -3,6 +3,7 @@ import { STATS_COLOR } from "@/app/constants/constants";
 import { Stat } from "@/app/type/pokemon.type";
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface StatsProps {
@@ -37,9 +38,11 @@ const StatType = styled(Typography)`
 `;
 
 const Stats: React.FC<StatsProps> = ({ status }) => {
+  const t = useTranslations("Pokemon");
+
   return (
     <Box>
-      <Title>Stats :</Title>
+      <Title>{t("label_stats")} :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
         {status?.map((stat, index) => (
           <StatsInfo key={index} color={STATS_COLOR[index]}>

@@ -9,6 +9,7 @@ import { Ability, Type } from "@/app/type/pokemon.type";
 import MoreDetailButton from "./MoreDetailButton";
 import { Link } from "@/i18n/routing";
 import { getTypeIdFromURL } from "@/app/utils/utils";
+import { useTranslations } from "next-intl";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
@@ -37,6 +38,8 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
   abilities,
   id,
 }) => {
+  const t = useTranslations("Pokemon");
+
   return (
     <Box display="flex" flexDirection="row" gap={"16px"}>
       <Image
@@ -57,16 +60,16 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
         <Box mt="16px" display="flex" flexDirection="column" gap="10px">
           <Box display="flex" flexDirection="row">
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title width="125px">Weight: </Title>
+              <Title width="125px">{t("label_weight")}: </Title>
               <Value>{weight}</Value>
             </Box>
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title width="125px">Height: </Title>
+              <Title width="125px">{t("label_height")}: </Title>
               <Value>{height}</Value>
             </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title width="125px">Abilities: </Title>
+            <Title width="125px">{t("label_abilities")}: </Title>
             <Box marginLeft="15px">
               <ul>
                 {abilities?.map((ability) => (
@@ -76,7 +79,7 @@ const PokemonInformation: React.FC<PokemonInformationProps> = ({
             </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title width="125px">Type: </Title>
+            <Title width="125px">{t("label_type")}: </Title>
             {type?.map(({ type }) => {
               const typeId: string = getTypeIdFromURL(type.url);
 

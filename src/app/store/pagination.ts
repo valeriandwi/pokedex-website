@@ -9,6 +9,7 @@ type PaginationState = {
 type PaginationAction = {
   setNumberPerPage: (numberPerPage: number) => void;
   setPageNumber: (pageNumber: number) => void;
+  resetPagination: () => void;
 };
 
 const usePaginationStore = create<PaginationState & PaginationAction>(
@@ -19,6 +20,8 @@ const usePaginationStore = create<PaginationState & PaginationAction>(
       set(() => ({ numberPerPage: numberPerPage })),
     setPageNumber: (pageNumber: number) =>
       set(() => ({ pageNumber: pageNumber })),
+    resetPagination: () =>
+      set(() => ({ pageNumber: 1, numberPerPage: DEFAULT_PER_PAGE_NUMBER })),
   })
 );
 

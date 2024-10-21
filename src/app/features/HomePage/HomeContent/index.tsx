@@ -1,8 +1,8 @@
 import PrimaryButton from "@/app/components/PrimaryButton";
+import { Link } from "@/i18n/routing";
 import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const HomeContent = () => {
@@ -27,11 +27,11 @@ const HomeContent = () => {
             {t("title")}
           </Typography>
           <Typography fontSize="20px" color="#7B8082" fontWeight="400">
-            Thousands of data compiled into one place
+            {t("subtitle")}
           </Typography>
         </Box>
         <PrimaryButton>
-          <Link href="#pokedex">Check PokèDex</Link>
+          <Link href="#pokedex">{t("button")}</Link>
         </PrimaryButton>
       </Box>
       <Box

@@ -28,7 +28,7 @@ const CardContainer = styled(Card)`
 
 const ContentWrapper = styled("div")`
   padding: 24px;
-  width: 100%;
+  width: 150px;
   display: flex;
   justify-content: center;
 `;
@@ -81,6 +81,7 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
           <Box
             display="flex"
             flexDirection="row"
+            gap="12px"
             alignItems="center"
             padding="24px"
             borderBottom="1px solid #ECEDED"
@@ -104,7 +105,7 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
               flexItem
             />
             <ContentWrapper>
-              <Title>#{"000" + pokemon?.id}</Title>
+              <Title> #{pokemon.id.toString().padStart(3, "0")}</Title>
             </ContentWrapper>
             <Divider
               color="#ECEDED"

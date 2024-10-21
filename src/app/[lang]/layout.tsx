@@ -7,6 +7,7 @@ import { theme } from "../theme";
 import { i18n, Locale } from "../../../i18n.config";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import MainLayout from "../layouts";
 
 export const metadata: Metadata = {
   title: "Pokemon",
@@ -38,7 +39,7 @@ export default async function RootLayout({
         <ThemeProvider theme={theme}>
           <AppRouterCacheProvider options={{ key: "css" }}>
             <NextIntlClientProvider messages={messages}>
-              {children}
+              <MainLayout>{children}</MainLayout>
             </NextIntlClientProvider>
           </AppRouterCacheProvider>
         </ThemeProvider>

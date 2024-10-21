@@ -58,7 +58,7 @@ const PokeDex = () => {
           backgroundSize: "cover",
         }}
       >
-        <Header />
+        <Header count={tableData?.count || 0} />
         <Grid2
           container
           spacing={8}

@@ -42,7 +42,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ data, openModal }) => {
         alt="pokemon-pic"
       />
       <Typography sx={{ color: "#B3B6B8", fontWeight: "700" }}>
-        #{("000" + data.id).slice(1)}
+        #{data.id.toString().padStart(3, "0")}
       </Typography>
       <Typography
         sx={{

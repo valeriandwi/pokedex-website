@@ -6,8 +6,8 @@ export default function HomePageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <MainLayout>
+    <>
       <section id="pokemon-types">{children}</section>
-    </MainLayout>
+    </>
   );
 }
