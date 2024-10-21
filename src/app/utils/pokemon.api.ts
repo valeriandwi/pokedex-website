@@ -58,7 +58,7 @@ export const getListPokemonByType = async ({
   id: number;
 }) => {
   try {
-    const startPage = pageNumber * limitPage;
+    const startPage = (pageNumber - 1) * limitPage;
     const endPage = startPage + limitPage;
 
     const pokemonType: APIResponse<PokemonTypeDetailResponse> =
