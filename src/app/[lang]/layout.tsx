@@ -8,6 +8,7 @@ import { i18n, Locale } from "../../../i18n.config";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import MainLayout from "../layouts";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pokemon",
