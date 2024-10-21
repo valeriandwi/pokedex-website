@@ -1,8 +1,27 @@
-import { Box, Container, MenuItem, Select } from "@mui/material";
+"use client";
+import { usePathname } from "@/i18n/routing";
+import {
+  Box,
+  Container,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import { useLocale } from "next-intl";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const TopNavBar = () => {
+  const router = useRouter();
+  const localeActive = useLocale();
+  const pathname = usePathname();
+
+  const onSelectChange = (e: SelectChangeEvent<string>) => {
+    const nextLocale = e.target.value;
+    router.replace(`/${nextLocale}/${pathname}`);
+  };
+
   return (
     <Container
       sx={{
@@ -32,12 +51,13 @@ const TopNavBar = () => {
             color: "#7B8082",
             gap: "8px",
           }}
+          defaultValue={localeActive}
           disableUnderline
-          value="english"
           variant="standard"
+          onChange={onSelectChange}
         >
-          <MenuItem value="english">English</MenuItem>
-          <MenuItem>Indonesia</MenuItem>
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="id">Indonesia</MenuItem>
         </Select>
       </Box>
     </Container>

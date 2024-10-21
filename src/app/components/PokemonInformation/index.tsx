@@ -1,12 +1,25 @@
+"use client";
 import styled from "@emotion/styled";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import ChipType from "../ChipType";
 import Title from "../Title";
+import { Ability, Type } from "@/app/type/pokemon.type";
+import MoreDetailButton from "./MoreDetailButton";
+import { Link } from "@/i18n/routing";
+import { getTypeIdFromURL } from "@/app/utils/utils";
+import { useTranslations } from "next-intl";
 
 interface PokemonInformationProps {
   showDetailButton?: boolean;
+  imageSrc?: string;
+  name?: string;
+  weight?: number;
+  height?: number;
+  abilities?: Ability[];
+  type?: Type[];
+  id?: number;
 }
 
 const Value = styled(Typography)`
@@ -17,54 +30,68 @@ const Value = styled(Typography)`
 
 const PokemonInformation: React.FC<PokemonInformationProps> = ({
   showDetailButton = false,
+  imageSrc,
+  name,
+  weight,
+  height,
+  type,
+  abilities,
+  id,
 }) => {
+  const t = useTranslations("Pokemon");
+
   return (
     <Box display="flex" flexDirection="row" gap={"16px"}>
-      <Image src="/logo.svg" width={400} height={400} alt="pokemon-image" />
+      <Image
+        src={imageSrc || ""}
+        width={400}
+        height={400}
+        alt="pokemon-image"
+      />
       <Box>
-        <Typography fontWeight="700" fontSize="40px" color="#42494D">
-          Pokemon Name
+        <Typography
+          textTransform="capitalize"
+          fontWeight="700"
+          fontSize="40px"
+          color="#42494D"
+        >
+          {name}
         </Typography>
         <Box mt="16px" display="flex" flexDirection="column" gap="10px">
           <Box display="flex" flexDirection="row">
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title>Weight: </Title>
-              <Value>9999</Value>
+              <Title width="125px">{t("label_weight")}: </Title>
+              <Value>{weight}</Value>
             </Box>
             <Box display="flex" flexDirection="row" gap="10px">
-              <Title>Height: </Title>
-              <Value>999</Value>
+              <Title width="125px">{t("label_height")}: </Title>
+              <Value>{height}</Value>
             </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title>Abilities: </Title>
-            <Value>
-              <p>Abilities 1</p>
-              <p>Abilities 2</p>
-            </Value>
+            <Title width="125px">{t("label_abilities")}: </Title>
+            <Box marginLeft="15px">
+              <ul>
+                {abilities?.map((ability) => (
+                  <li>{ability?.ability?.name}</li>
+                ))}
+              </ul>
+            </Box>
           </Box>
           <Box display="flex" flexDirection="row" gap="10px">
-            <Title>Type: </Title>
-            {[1, 2, 3].map((type) => (
-              <ChipType type={type} label={`Type ${type}`} />
-            ))}
+            <Title width="125px">{t("label_type")}: </Title>
+            {type?.map(({ type }) => {
+              const typeId: string = getTypeIdFromURL(type.url);
+
+              return (
+                <Link href={`type/${typeId}`}>
+                  <ChipType typeId={Number(typeId)} label={type.name} />
+                </Link>
+              );
+            })}
           </Box>
         </Box>
-        {showDetailButton && (
-          <Button
-            sx={{
-              marginTop: "52px",
-              backgroundColor: "#E6AB09",
-              width: "167px",
-              height: "50px",
-              borderRadius: "14px",
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            More Detail
-          </Button>
-        )}
+        {showDetailButton && <MoreDetailButton id={id} />}
       </Box>
     </Box>
   );

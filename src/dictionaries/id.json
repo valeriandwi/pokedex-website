@@ -1,0 +1,18 @@
+{
+  "HomePage": {
+    "title": "Semua data Pokémon yang Anda butuhkan dalam satu tempat!",
+    "subtitle": "Ribuan data dikompilasi dalam satu tempat",
+    "button": "Periksa PokèDex",
+    "pokedex": "PokèDex",
+    "pokedex_subtitle": "Semua Generasi total"
+  },
+  "Pokemon": {
+    "label_weight": "Berat",
+    "label_height": "Tinggi",
+    "label_abilities": "Kemampuan",
+    "label_type": "Tipe",
+    "label_otherImages": "Gambar Lainnya",
+    "label_stats": "Statistik",
+    "label_evolution": "Evolusi"
+  }
+}
