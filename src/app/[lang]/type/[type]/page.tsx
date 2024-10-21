@@ -1,10 +1,11 @@
 import Navigation from "@/app/features/Type/Navigation";
 import PokemonList from "@/app/features/Type/PokemonList";
-import MainLayout from "@/app/layouts";
 import { Box } from "@mui/material";
 import React from "react";
 
-const PokemonType = () => {
+const PokemonType = ({ params }: any) => {
+  const { type } = params;
+
   return (
     <>
       <Box
@@ -19,8 +20,8 @@ const PokemonType = () => {
         flexDirection="row"
         gap="57px"
       >
-        <Navigation />
-        <PokemonList />
+        <Navigation selectedType={type} />
+        <PokemonList id={type} />
       </Box>
     </>
   );

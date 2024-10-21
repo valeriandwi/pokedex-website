@@ -2,6 +2,7 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { router } from "./constants";
+import { Link } from "@/i18n/routing";
 
 const NavBar = () => {
   return (
@@ -27,7 +28,7 @@ const NavBar = () => {
           >
             {router.map((route, index) => (
               <Typography key={index} sx={{ my: 2, color: "#42494D" }}>
-                {route.label}
+                <Link href={route.path}>{route.label}</Link>
               </Typography>
             ))}
           </Box>

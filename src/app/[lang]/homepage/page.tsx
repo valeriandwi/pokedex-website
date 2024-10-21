@@ -2,7 +2,7 @@ import HomeContent from "@/app/features/HomePage/HomeContent";
 import PokeDex from "@/app/features/HomePage/PokeDex";
 import React from "react";
 
-const HomePage = () => {
+const HomePage = async ({ params }: any) => {
   return (
     <>
       <HomeContent />

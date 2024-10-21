@@ -2,10 +2,20 @@
 import AppPagination from "@/app/components/AppPagination";
 import ChipType from "@/app/components/ChipType";
 import Title from "@/app/components/Title";
+import { TYPE_COLOR } from "@/app/constants/constants";
+import usePaginationStore from "@/app/store/pagination";
+import useThemeStore from "@/app/store/theme";
+import { PokemonTypeDetailResponse } from "@/app/type/pokemon-type.type";
+import { PokemonAPIResponse } from "@/app/type/pokemon.type";
+import { getListPokemonByType } from "@/app/utils/pokemon.api";
 import styled from "@emotion/styled";
 import { Box, Card, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+
+interface PokemonListProps {
+  id: number;
+}
 
 const CardContainer = styled(Card)`
   max-width: 866px;
@@ -16,9 +26,39 @@ const CardContainer = styled(Card)`
 
 const ContentWrapper = styled("div")`
   padding: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
-const PokemonList = () => {
+const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
+  const [pokemonData, setPokemonData] = React.useState<PokemonAPIResponse[]>();
+  const [pokemonType, setPokemonType] =
+    React.useState<PokemonTypeDetailResponse | null>(null);
+  const { numberPerPage, pageNumber } = usePaginationStore();
+  const { setTheme } = useThemeStore();
+
+  React.useEffect(() => {
+    setTheme({
+      paginationBorderColor: TYPE_COLOR[id.toString()],
+      paginationSelectedColor: "#fff",
+      paginationTextColor: TYPE_COLOR[id.toString()],
+    });
+  }, [id]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await getListPokemonByType({
+        pageNumber: pageNumber,
+        id: id,
+        limitPage: numberPerPage,
+      });
+      setPokemonType(response?.pokemonType?.data || null);
+      setPokemonData(response?.allPokemonData || []);
+    };
+    fetchData();
+  }, [id, pageNumber, numberPerPage]);
+
   return (
     <Box
       display="flex"
@@ -26,11 +66,16 @@ const PokemonList = () => {
       gap="24px"
       width="-webkit-fill-available"
     >
-      <Typography fontWeight="700" fontSize="40px" color="#42494D">
-        Pokemon with Type 1
+      <Typography
+        fontWeight="700"
+        fontSize="40px"
+        color="#42494D"
+        textTransform="capitalize"
+      >
+        Pokemon with Type {pokemonType?.name}
       </Typography>
       <CardContainer>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((pokemon) => (
+        {pokemonData?.map((pokemon) => (
           <Box
             display="flex"
             flexDirection="row"
@@ -39,7 +84,12 @@ const PokemonList = () => {
             borderBottom="1px solid #ECEDED"
           >
             <ContentWrapper>
-              <Image src="/" alt="pokemon-image" width="100" height="100" />
+              <Image
+                src={pokemon?.sprites?.other?.dream_world?.front_default || ""}
+                alt="pokemon-image"
+                width="100"
+                height="100"
+              />
             </ContentWrapper>
             <Divider
               color="#ECEDED"
@@ -48,7 +98,7 @@ const PokemonList = () => {
               flexItem
             />
             <ContentWrapper>
-              <Title>#001</Title>
+              <Title>#{"000" + pokemon?.id}</Title>
             </ContentWrapper>
             <Divider
               color="#ECEDED"
@@ -57,7 +107,7 @@ const PokemonList = () => {
               flexItem
             />
             <ContentWrapper>
-              <Title>Pokemon Name</Title>
+              <Title textTransform="capitalize">{pokemon?.name}</Title>
             </ContentWrapper>
             <Divider
               color="#ECEDED"
@@ -67,13 +117,21 @@ const PokemonList = () => {
             />
             <ContentWrapper>
               <Box display="flex" flexDirection="row" gap="10px">
-                <ChipType type={1} label={"Type 1"} />
-                <ChipType type={2} label={"Type 2"} />
+                {pokemon?.types?.map((type, index) => (
+                  <ChipType
+                    key={index}
+                    type={type.type.name}
+                    label={type.type.name}
+                  />
+                ))}
               </Box>
             </ContentWrapper>
           </Box>
         ))}
-        <AppPagination />
+        <AppPagination
+          size="small"
+          totalData={pokemonType?.pokemon?.length || 0}
+        />
       </CardContainer>
     </Box>
   );

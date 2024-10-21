@@ -12,6 +12,7 @@ import {
 import useModal from "@/app/hooks/useModal";
 import AppPagination from "@/app/components/AppPagination";
 import usePaginationStore from "@/app/store/pagination";
+import useThemeStore from "@/app/store/theme";
 
 const PokeDex = () => {
   const {
@@ -21,6 +22,7 @@ const PokeDex = () => {
     modalData,
   } = useModal<PokemonAPIResponse>();
   const { numberPerPage, pageNumber } = usePaginationStore();
+  const { resetTheme } = useThemeStore();
 
   const [tableData, setTableData] = React.useState<
     PokemonListResponse | undefined
@@ -28,6 +30,10 @@ const PokeDex = () => {
   const [pokemonData, setPokemonData] = React.useState<PokemonAPIResponse[]>(
     []
   );
+
+  React.useEffect(() => {
+    resetTheme();
+  }, []);
 
   React.useEffect(() => {
     const fetchData = async () => {

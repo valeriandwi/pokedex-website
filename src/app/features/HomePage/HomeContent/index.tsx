@@ -1,10 +1,13 @@
 import PrimaryButton from "@/app/components/PrimaryButton";
 import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const HomeContent = () => {
+  const t = useTranslations("HomePage");
+
   return (
     <Box
       width="full"
@@ -21,7 +24,7 @@ const HomeContent = () => {
       >
         <Box width="534px" display="flex" flexDirection="column" gap="16px">
           <Typography color="#42494D" fontSize="52px" fontWeight="700">
-            All the Pokémon data you&apos;ll ever need in one place!
+            {t("title")}
           </Typography>
           <Typography fontSize="20px" color="#7B8082" fontWeight="400">
             Thousands of data compiled into one place

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "./theme";
+import { theme } from "../theme";
+import { i18n, Locale } from "../../../i18n.config";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,17 +19,27 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: Locale };
 }>) {
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={params.lang}>
       <body className={poppins.className}>
         <ThemeProvider theme={theme}>
           <AppRouterCacheProvider options={{ key: "css" }}>
-            {children}
+            <NextIntlClientProvider messages={messages}>
+              {children}
+            </NextIntlClientProvider>
           </AppRouterCacheProvider>
         </ThemeProvider>
       </body>

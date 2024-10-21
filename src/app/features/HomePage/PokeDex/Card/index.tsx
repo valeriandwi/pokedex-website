@@ -34,7 +34,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ data, openModal }) => {
       onClick={openModal}
     >
       <PokeImage
-        src={data?.sprites?.other?.dream_world?.front_default}
+        src={data?.sprites?.other?.dream_world?.front_default || ""}
         height="275"
         width="275"
         alt="pokemon-pic"

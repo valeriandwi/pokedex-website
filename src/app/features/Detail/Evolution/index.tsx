@@ -27,46 +27,50 @@ const Evolution: React.FC<EvolutionProps> = ({ evolutionData }) => {
     <Box marginTop="35px">
       <Title>Evolution :</Title>
       <Box display="flex" flexDirection="row" gap="25px">
-        {evolutionData.map((state, index) => (
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            gap="10px"
-          >
+        {evolutionData
+          .sort((a, b) => a.id - b.id)
+          .map((state, index) => (
             <Box
               display="flex"
-              flexDirection="row"
-              gap="25px"
+              flexDirection="column"
               alignItems="center"
+              justifyContent="center"
+              gap="10px"
             >
-              {index !== 0 && (
-                <Image
-                  src="/icons/arrow-right.svg"
-                  alt="arrow-right"
-                  width="50"
-                  height="50"
-                />
-              )}
-              <EvolutionState key={index}>
-                <Image
-                  src={state?.sprites?.other?.dream_world?.front_default || ""}
-                  alt={state.name}
-                  width="100"
-                  height="100"
-                />
-              </EvolutionState>
+              <Box
+                display="flex"
+                flexDirection="row"
+                gap="25px"
+                alignItems="center"
+              >
+                {index !== 0 && (
+                  <Image
+                    src="/icons/arrow-right.svg"
+                    alt="arrow-right"
+                    width="50"
+                    height="50"
+                  />
+                )}
+                <EvolutionState key={index}>
+                  <Image
+                    src={
+                      state?.sprites?.other?.dream_world?.front_default || ""
+                    }
+                    alt={state.name}
+                    width="100"
+                    height="100"
+                  />
+                </EvolutionState>
+              </Box>
+              <Title
+                marginLeft={index !== 0 ? "75px" : 0}
+                textAlign="center"
+                textTransform="capitalize"
+              >
+                {state.name}
+              </Title>
             </Box>
-            <Title
-              marginLeft={index !== 0 ? "75px" : 0}
-              textAlign="center"
-              textTransform="capitalize"
-            >
-              {state.name}
-            </Title>
-          </Box>
-        ))}
+          ))}
       </Box>
     </Box>
   );
