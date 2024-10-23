@@ -6,6 +6,7 @@ import emotionStyled from "@emotion/styled";
 import useThemeStore from "@/app/store/theme";
 import { PaginationSize } from "@/app/type/global.type";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { DEFAULT_PER_PAGE_NUMBER } from "@/app/constants/constants";
 
 interface AppPaginationProps {
   totalData: number;
@@ -52,8 +53,9 @@ const AppPagination: React.FC<AppPaginationProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  const currentPage = Number(searchParams.get("page"));
-  const currentPageSize = Number(searchParams.get("pageSize"));
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const currentPageSize =
+    Number(searchParams.get("pageSize")) || DEFAULT_PER_PAGE_NUMBER;
 
   const changePageNumber = (pageNumber: number | string) => {
     params.set("page", pageNumber.toString());
