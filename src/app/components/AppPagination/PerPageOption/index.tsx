@@ -1,9 +1,12 @@
-import { PER_PAGE_OPTIONS } from "@/app/constants/constants";
-import usePaginationStore from "@/app/store/pagination";
+import {
+  DEFAULT_PER_PAGE_NUMBER,
+  PER_PAGE_OPTIONS,
+} from "@/app/constants/constants";
 import useThemeStore from "@/app/store/theme";
 import { PaginationSize } from "@/app/type/global.type";
 import emotionStyled from "@emotion/styled";
 import { Box, MenuItem, Select, Typography } from "@mui/material";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const StyledSelect = emotionStyled(Select)<{
@@ -22,8 +25,19 @@ const StyledSelect = emotionStyled(Select)<{
 `;
 
 const PerPageOption: React.FC<{ size: PaginationSize }> = ({ size }) => {
-  const { numberPerPage, setNumberPerPage } = usePaginationStore();
   const { themeColor } = useThemeStore();
+
+  const { replace } = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const currentPageSize = Number(searchParams.get("pageSize"));
+
+  const changePageSize = (pageSize: number | string) => {
+    params.set("pageSize", pageSize.toString());
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <Box display="flex" flexDirection="row" gap="36px" alignItems="center">
       <Typography
@@ -35,8 +49,8 @@ const PerPageOption: React.FC<{ size: PaginationSize }> = ({ size }) => {
       </Typography>
       <StyledSelect
         size={size}
-        value={numberPerPage}
-        onChange={(event) => setNumberPerPage(event.target.value as number)}
+        value={currentPageSize || DEFAULT_PER_PAGE_NUMBER}
+        onChange={(event) => changePageSize(event.target.value as number)}
         variant="standard"
         disableUnderline
         bordercolor={themeColor.paginationBorderColor || "#fff"}
