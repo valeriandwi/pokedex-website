@@ -3,7 +3,6 @@ import AppPagination from "@/app/components/AppPagination";
 import ChipType from "@/app/components/ChipType";
 import Title from "@/app/components/Title";
 import { TYPE_COLOR } from "@/app/constants/constants";
-import usePaginationStore from "@/app/store/pagination";
 import useThemeStore from "@/app/store/theme";
 import { PokemonTypeDetailResponse } from "@/app/type/pokemon-type.type";
 import { PokemonAPIResponse } from "@/app/type/pokemon.type";
@@ -17,6 +16,8 @@ import React from "react";
 
 interface PokemonListProps {
   id: string;
+  page: number;
+  pageSize: number;
 }
 
 const CardContainer = styled(Card)`
@@ -33,11 +34,10 @@ const ContentWrapper = styled("div")`
   justify-content: center;
 `;
 
-const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
+const PokemonList: React.FC<PokemonListProps> = ({ id, page, pageSize }) => {
   const [pokemonData, setPokemonData] = React.useState<PokemonAPIResponse[]>();
   const [pokemonType, setPokemonType] =
     React.useState<PokemonTypeDetailResponse | null>(null);
-  const { numberPerPage, pageNumber } = usePaginationStore();
   const { setTheme } = useThemeStore();
 
   React.useEffect(() => {
@@ -51,15 +51,15 @@ const PokemonList: React.FC<PokemonListProps> = ({ id }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await getListPokemonByType({
-        pageNumber: pageNumber,
+        pageNumber: page,
         id: Number(id),
-        limitPage: numberPerPage,
+        limitPage: pageSize,
       });
       setPokemonType(response?.pokemonType?.data || null);
       setPokemonData(response?.allPokemonData || []);
     };
     fetchData();
-  }, [id, pageNumber, numberPerPage]);
+  }, [id, page, pageSize]);
 
   return (
     <Box

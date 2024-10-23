@@ -2,10 +2,11 @@ import { Box, Pagination } from "@mui/material";
 import React from "react";
 import PerPageOption from "./PerPageOption";
 import TotalData from "./TotalData";
-import usePaginationStore from "@/app/store/pagination";
 import emotionStyled from "@emotion/styled";
 import useThemeStore from "@/app/store/theme";
 import { PaginationSize } from "@/app/type/global.type";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { DEFAULT_PER_PAGE_NUMBER } from "@/app/constants/constants";
 
 interface AppPaginationProps {
   totalData: number;
@@ -46,13 +47,20 @@ const AppPagination: React.FC<AppPaginationProps> = ({
   totalData,
   size = "medium",
 }) => {
-  const { numberPerPage, pageNumber, setPageNumber, resetPagination } =
-    usePaginationStore();
   const { themeColor } = useThemeStore();
 
-  React.useEffect(() => {
-    resetPagination();
-  }, [resetPagination]);
+  const { replace } = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const currentPageSize =
+    Number(searchParams.get("pageSize")) || DEFAULT_PER_PAGE_NUMBER;
+
+  const changePageNumber = (pageNumber: number | string) => {
+    params.set("page", pageNumber.toString());
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <Box
@@ -69,12 +77,12 @@ const AppPagination: React.FC<AppPaginationProps> = ({
         selectedcolor={themeColor.paginationSelectedColor || "#fff"}
         bordercolor={themeColor.paginationBorderColor || "#fff"}
         textcolor={themeColor.paginationTextColor || "#fff"}
-        count={Math.floor(totalData / numberPerPage)}
+        count={Math.floor(totalData / currentPageSize)}
         showFirstButton
         showLastButton
         variant="outlined"
-        page={pageNumber}
-        onChange={(_, page) => setPageNumber(page)}
+        page={currentPage}
+        onChange={(_, pageNumber) => changePageNumber(pageNumber)}
       />
       <TotalData size={size} totalData={totalData} />
     </Box>

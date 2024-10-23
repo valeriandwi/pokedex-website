@@ -11,17 +11,20 @@ import {
 } from "@/app/type/pokemon.type";
 import useModal from "@/app/hooks/useModal";
 import AppPagination from "@/app/components/AppPagination";
-import usePaginationStore from "@/app/store/pagination";
 import useThemeStore from "@/app/store/theme";
 
-const PokeDex = () => {
+interface PokeDexProps {
+  currentPage: number;
+  pageSize: number;
+}
+
+const PokeDex: React.FC<PokeDexProps> = ({ currentPage, pageSize }) => {
   const {
     open: openModal,
     setOpen: setOpenModal,
     setModalData,
     modalData,
   } = useModal<PokemonAPIResponse>();
-  const { numberPerPage, pageNumber } = usePaginationStore();
   const { resetTheme } = useThemeStore();
 
   const [tableData, setTableData] = React.useState<
@@ -38,14 +41,14 @@ const PokeDex = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       const result = await getListPokemon({
-        limitPage: numberPerPage,
-        pageNumber: pageNumber,
+        limitPage: pageSize,
+        pageNumber: currentPage,
       });
       setTableData(result?.pokemonList);
       setPokemonData(result?.allPokemonInformation as PokemonAPIResponse[]);
     };
     fetchData();
-  }, [numberPerPage, pageNumber]);
+  }, [pageSize, currentPage]);
 
   return (
     <section id="pokedex">

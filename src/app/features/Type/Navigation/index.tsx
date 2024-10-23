@@ -3,9 +3,10 @@ import Title from "@/app/components/Title";
 import { TYPE_COLOR } from "@/app/constants/constants";
 import { PokemonTypeResult } from "@/app/type/pokemon-type.type";
 import { getPokemonType } from "@/app/utils/type.api";
-import { Link } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 import emotionStyled from "@emotion/styled";
 import { Box, Divider } from "@mui/material";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 interface NavigationProps {
@@ -44,22 +45,29 @@ const Navigation: React.FC<NavigationProps> = ({ selectedType }) => {
     fetchData();
   }, []);
 
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
+  const changeTypeCategory = (type: number | string) => {
+    replace(`/type/${type}?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <Box display="flex" flexDirection="row" gap="57px">
       <Box display="flex" flexDirection="column" gap="8px">
         <Title width="180px">Pokemon Type</Title>
         <MenuWrapper>
           {pokemonType?.map((type, index) => {
-            const currentType: string = type.url.split("/").at(-2) || "1";
+            const typeId: string = type.url.split("/").at(-2) || "1";
             return (
               <Menu
-                selectedColor={TYPE_COLOR?.[Number(currentType) - 1]}
+                selectedColor={TYPE_COLOR?.[Number(typeId) - 1]}
                 key={index}
-                selected={selectedType === currentType}
+                selected={selectedType === typeId}
+                onClick={() => changeTypeCategory(typeId)}
               >
-                <Link href={`/type/${currentType}`}>
-                  Pokemon Type {type.name}
-                </Link>
+                Pokemon Type {type.name}
               </Menu>
             );
           })}
